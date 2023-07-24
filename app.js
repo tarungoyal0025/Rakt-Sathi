@@ -26,15 +26,14 @@ app.use(express.static(path.join(__dirname,'./client/build')))
 mongoose.connect(process.env.CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (e) => {
 	console.log(e ? e : "Connected successfully to database");
 });
-
-app.use('*',function(req,res)
-{
-	res.sendFile(path.join(__dirname,'./client/build/index.html'));
-})
 app.use("/auth", require("./routers/authRouter"));
 app.use("/user", require("./routers/userRouter"));
 app.use("/bank", require("./routers/bankRouter"));
 app.use("/camps", require("./routers/campRouter"));
+app.use('*',function(req,res)
+{
+	res.sendFile(path.join(__dirname,'./client/build/index.html'));
+})
 
 app.listen(port, () =>
 	console.log(`Server running at http://localhost:${port}`)
